@@ -24,6 +24,7 @@ class PrimaryViewController: UIViewController {
     func addBottomSheet() {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let bottomSheetVC = storyBoard.instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
+        bottomSheetVC.delegate = self
         self.addChildViewController(bottomSheetVC)
         self.view.addSubview(bottomSheetVC.view)
         bottomSheetVC.didMove(toParentViewController: self)
@@ -50,4 +51,15 @@ class PrimaryViewController: UIViewController {
     }
     */
 
+}
+
+extension PrimaryViewController: BottomSheetDelegate {
+   
+    func bottomSheet(sheetVC: BottomSheetViewController?, didChangePosition distance: CGFloat) {
+        print("distance",distance)
+    }
+    
+    func bottomSheet(sheetVC: BottomSheetViewController?, didGoesTo position: FlickPos) {
+        print("sheetgoes to position", position)
+    }
 }

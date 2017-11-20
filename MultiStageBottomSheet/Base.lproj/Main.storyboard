@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -82,7 +83,7 @@
                                             <constraint firstAttribute="trailing" secondItem="EFH-MC-smQ" secondAttribute="trailing" constant="10" id="k5v-MB-Arb"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tzs-17-Lp4">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tzs-17-Lp4">
                                         <rect key="frame" x="0.0" y="30" width="375" height="70"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" barStyle="black" placeholder="Search for place or address" translatesAutoresizingMaskIntoConstraints="NO" id="HHh-ES-Esy">
@@ -123,18 +124,56 @@
                                             <constraint firstItem="HHh-ES-Esy" firstAttribute="height" secondItem="Tzs-17-Lp4" secondAttribute="height" id="pZf-2f-8Ny"/>
                                             <constraint firstItem="TdA-zx-Hz5" firstAttribute="centerX" secondItem="Tzs-17-Lp4" secondAttribute="centerX" id="wGd-V5-pKu"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                <real key="value" value="0.38"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                <size key="value" width="0.0" height="-5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Ux-MT-YPG">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Ux-MT-YPG">
                                         <rect key="frame" x="0.0" y="100" width="375" height="567"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="45" id="c3C-FU-e4g">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="45"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SheetCell" rowHeight="57" id="c3C-FU-e4g" customClass="SheetCell" customModule="MultiStageBottomSheet" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="57"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c3C-FU-e4g" id="vhq-PK-CHZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTh-OL-s9a">
+                                                            <rect key="frame" x="16" y="5" width="354" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gke-bg-tfC">
+                                                            <rect key="frame" x="16" y="31" width="354" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="gke-bg-tfC" secondAttribute="trailing" constant="5" id="0k5-O9-Y1j"/>
+                                                        <constraint firstAttribute="bottom" secondItem="gke-bg-tfC" secondAttribute="bottom" constant="5" id="4VS-SX-cU0"/>
+                                                        <constraint firstItem="WTh-OL-s9a" firstAttribute="top" secondItem="vhq-PK-CHZ" secondAttribute="top" constant="5" id="dFp-Rt-3NM"/>
+                                                        <constraint firstAttribute="trailing" secondItem="WTh-OL-s9a" secondAttribute="trailing" constant="5" id="dTg-mw-koS"/>
+                                                        <constraint firstItem="gke-bg-tfC" firstAttribute="leading" secondItem="vhq-PK-CHZ" secondAttribute="leading" constant="16" id="nKq-yb-bAe"/>
+                                                        <constraint firstItem="WTh-OL-s9a" firstAttribute="leading" secondItem="vhq-PK-CHZ" secondAttribute="leading" constant="16" id="rpQ-tt-LtU"/>
+                                                        <constraint firstItem="gke-bg-tfC" firstAttribute="top" secondItem="WTh-OL-s9a" secondAttribute="bottom" constant="5" id="xly-hf-8tq"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="subtitleLabel" destination="gke-bg-tfC" id="nPV-iZ-OQD"/>
+                                                    <outlet property="titleLabel" destination="WTh-OL-s9a" id="DFw-ls-1a9"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -176,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="leU-E3-vtd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="786" y="191"/>
+            <point key="canvasLocation" x="784.79999999999995" y="190.25487256371815"/>
         </scene>
     </scenes>
 </document>

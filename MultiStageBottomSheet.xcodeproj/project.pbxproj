@@ -15,6 +15,7 @@
 		41F230711FC259B20094AE68 /* MultiStageBottomSheetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F230701FC259B20094AE68 /* MultiStageBottomSheetUITests.swift */; };
 		41F2307F1FC25BDF0094AE68 /* PrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F2307E1FC25BDF0094AE68 /* PrimaryViewController.swift */; };
 		41F230811FC25C0A0094AE68 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F230801FC25C0A0094AE68 /* BottomSheetViewController.swift */; };
+		4AECF4971FC2FDBC0090932A /* SheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AECF4961FC2FDBC0090932A /* SheetCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		41F230721FC259B20094AE68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41F2307E1FC25BDF0094AE68 /* PrimaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryViewController.swift; sourceTree = "<group>"; };
 		41F230801FC25C0A0094AE68 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		4AECF4951FC2E5C80090932A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4AECF4961FC2FDBC0090932A /* SheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 				41F230641FC259B20094AE68 /* MultiStageBottomSheetTests */,
 				41F2306F1FC259B20094AE68 /* MultiStageBottomSheetUITests */,
 				41F2304B1FC259B20094AE68 /* Products */,
+				4AECF4941FC2E5C70090932A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +106,7 @@
 				41F2304D1FC259B20094AE68 /* AppDelegate.swift */,
 				41F2307E1FC25BDF0094AE68 /* PrimaryViewController.swift */,
 				41F230801FC25C0A0094AE68 /* BottomSheetViewController.swift */,
+				4AECF4961FC2FDBC0090932A /* SheetCell.swift */,
 				41F230511FC259B20094AE68 /* Main.storyboard */,
 				41F230571FC259B20094AE68 /* Assets.xcassets */,
 				41F230591FC259B20094AE68 /* LaunchScreen.storyboard */,
@@ -126,6 +131,14 @@
 				41F230721FC259B20094AE68 /* Info.plist */,
 			);
 			path = MultiStageBottomSheetUITests;
+			sourceTree = "<group>";
+		};
+		4AECF4941FC2E5C70090932A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4AECF4951FC2E5C80090932A /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +278,7 @@
 				41F2307F1FC25BDF0094AE68 /* PrimaryViewController.swift in Sources */,
 				41F2304E1FC259B20094AE68 /* AppDelegate.swift in Sources */,
 				41F230811FC25C0A0094AE68 /* BottomSheetViewController.swift in Sources */,
+				4AECF4971FC2FDBC0090932A /* SheetCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8JNBB9XQX;
 				INFOPLIST_FILE = MultiStageBottomSheet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.MultiStageBottomSheet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -449,7 +463,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8JNBB9XQX;
 				INFOPLIST_FILE = MultiStageBottomSheet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.MultiStageBottomSheet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
