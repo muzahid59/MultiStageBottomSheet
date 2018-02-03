@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+
+// MARK:- Sheet Position
 public enum FlickPos {
     
     case Top, Middle, Bottom
@@ -28,7 +30,6 @@ public enum FlickPos {
 }
 
 extension FlickPos {
-    
     static func getPosition(min y: CGFloat, withDirection velocity: CGPoint) -> FlickPos {
         
         var cardPosition: FlickPos = .Bottom
@@ -85,10 +86,16 @@ extension FlickPos {
     }
 }
 
+
+// MARK:- BottomSheetDelegate
+
  protocol BottomSheetDelegate {
     func bottomSheet(sheetVC: BottomSheetViewController?, didGoesTo position: FlickPos)
     func bottomSheet(sheetVC: BottomSheetViewController?, didChangePosition distance: CGFloat)
 }
+
+
+// MARK:- BottomSheetViewController
 
 class BottomSheetViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
@@ -107,15 +114,17 @@ class BottomSheetViewController: UIViewController {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
+        
+        searchBar.layer.borderColor = UIColor.clear.cgColor
+        
+        tableView.rowHeight = 66.0
+        tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //  prepareBackgroundView()
-        let roundOffset = 8.0
-        let mask = UIBezierPath(roundedRect: headerView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: roundOffset, height: roundOffset))
-        mask.bounds =
-      //  let mask: CAShapeLayer = CAShapeLayer(
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -138,11 +147,11 @@ class BottomSheetViewController: UIViewController {
         let translation = recognizer.translation(in: self.view)
         let velocity = recognizer.velocity(in: self.view)
         let location = recognizer.location(in: self.view)
-        print("velocity",velocity)
-        print("translation",translation)
-        print("location",location)
+       // print("velocity",velocity)
+       // print("translation",translation)
+       // print("location",location)
         let (maxY, minY) = (self.view.frame.maxX, self.view.frame.minY)
-        print("maxY", maxY, "minY",minY)
+       // print("maxY", maxY, "minY",minY)
         if (minY + translation.y >= FlickPos.topInset) && (minY + translation.y <= FlickPos.Bottom.yPos()) {
             self.view.frame = CGRect(x: 0, y: minY + translation.y, width: view.frame.width, height: view.frame.height)
             recognizer.setTranslation(CGPoint.zero, in: self.view)
@@ -153,12 +162,9 @@ class BottomSheetViewController: UIViewController {
         } else {
         
             floatingView.alpha = max(0, 0.3 - abs((FlickPos.Middle.yPos() - minY))/FlickPos.Middle.yPos())
-            //print("dis", abs((FlickPos.Middle.yPos() - minY)), "flicPos", FlickPos.Middle.yPos())
+           
         }
-//
-//        if recognizer.state == .began && searchBar.becomeFirstResponder() {
-//            searchBar.resignFirstResponder()
-//        }
+
         if recognizer.state == .changed {
             delegate?.bottomSheet(sheetVC: self, didChangePosition: minY)
         }
@@ -167,12 +173,16 @@ class BottomSheetViewController: UIViewController {
             animate(to: currPos, with: velocity)
         }
     }
+
     
     func animate(to position: FlickPos = .Bottom, with velocity: CGPoint) {
         
         let targetY: CGFloat = position.yPos()
         
         let duration = 0.25; let delay = 0.0
+        
+       // print(#function)
+        debugPrint(#function)
         
         UIView.animate(withDuration: duration, delay: delay, options: [.allowUserInteraction], animations: {  [weak self] in
             
@@ -182,7 +192,6 @@ class BottomSheetViewController: UIViewController {
         }, completion: { [weak self] _ in
             self?.tableView.isScrollEnabled = position == .Top
             self?.delegate?.bottomSheet(sheetVC: self, didGoesTo: position)
-            //  self?.view.shake(velocity: velocity)
         })
     }
     
@@ -198,20 +207,14 @@ class BottomSheetViewController: UIViewController {
     
 }
 
+
+// MARK:- UITableView DataSource and Delegate
+
 extension BottomSheetViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SheetCell") as! SheetCell
         cell.titleLabel.text = "Dhaka, mirpur road no: \(indexPath.row)"
@@ -220,17 +223,13 @@ extension BottomSheetViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
+
+// MARK:- UIGestureRecognizerDelegate
+
 extension BottomSheetViewController: UIGestureRecognizerDelegate {
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        print("----------shouldRecognizeSimultaneouslyWith---------")
-        print("tableview  content offset.y", tableView.contentOffset.y)
-        
         let gesture = (gestureRecognizer as! UIPanGestureRecognizer)
         let direction = gesture.velocity(in: view).y
-        
-        print("direction",direction)
-        
         if (currPos == .Top && tableView.contentOffset.y <= 0 && direction >= 0) {
             tableView.isScrollEnabled = false
             if direction != 0 {
@@ -244,6 +243,7 @@ extension BottomSheetViewController: UIGestureRecognizerDelegate {
     }
 }
 
+// MARK:-  UISearchBarDelegate
 extension BottomSheetViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         if currPos != .Top {
@@ -255,12 +255,14 @@ extension BottomSheetViewController: UISearchBarDelegate {
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        if currPos == .Top {
+            currPos = .Bottom
+            animate(to: .Bottom, with: CGPoint(x: 0, y: -10))
+        }
+        
     }
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-//        if currPos == .Top {
-//            currPos = .Middle
-//            animate(to: .Middle, with: CGPoint(x: 0, y: -10))
-//        }
+        
         searchBar.setShowsCancelButton(false, animated: false)
         return true
     }
@@ -269,27 +271,7 @@ extension BottomSheetViewController: UISearchBarDelegate {
     }
 }
 
-extension BottomSheetViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll")
-       // searchBar.resignFirstResponder()
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("scrollViewDidEndDragging")
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print("scrollViewWillBeginDragging")
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print("scrollViewWillEndDragging")
-    }
-}
-
-
+// MARK:- Shaking
 extension UIView {
     func shake(velocity: CGPoint) {
         self.transform = CGAffineTransform(translationX: 0, y: velocity.y < 0 ? -5 : 5)
